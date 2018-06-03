@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ObjAtlas.WaveFront.Mat
 {
-     [Serializable]
+    [Serializable]
     public class Material
     {
         public string materialName { get; set; }

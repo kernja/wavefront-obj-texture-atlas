@@ -73,7 +73,19 @@ namespace ObjAtlas.Atlas
         private Point _originInBin;
         private Point _sizeInBin;
         private PointF _originInBinPercentage;
+        public PointF OriginInBinPercentage
+        {
+            get
+            {
+                return _originInBinPercentage;
+            }
+        }
         private PointF _sizeInBinPercentage;
+        public PointF SizeInBinPercentage { get
+            {
+                return _sizeInBinPercentage;
+            }
+        }
         private bool _placedInBin;
 
         public MaterialAtl(string materialName)
@@ -146,6 +158,11 @@ namespace ObjAtlas.Atlas
             _sizeInBin = new Point((int)((float)textureRepeatedSize.X * (targetTextureScale.X * .01)), (int)((float)textureRepeatedSize.Y * (targetTextureScale.Y * .01)));
             _placedInBin = false;
         }
+        public void FinalizeSolvedAtlas(int pWidth, int pHeight)
+        {
+            _originInBinPercentage = new PointF((float)_originInBin.X / (float)pWidth, (float)_originInBin.Y / (float)pHeight);
+            _sizeInBinPercentage = new PointF((float)_sizeInBin.X / (float)pWidth, (float)_sizeInBin.Y / (float)pHeight);
+        }
         public bool IsPlacedInBin()
         {
             return _placedInBin;
@@ -187,7 +204,7 @@ namespace ObjAtlas.Atlas
             using (TextureBrush txb = new TextureBrush(this.textureImage, WrapMode.Tile))
             {
                 txb.TranslateTransform(_originInBin.X, _originInBin.Y);
-                txb.ScaleTransform(targetTextureScale.X * .01f, targetTextureScale.Y * .01f);
+                txb.ScaleTransform(targetTextureScale.X * .01f, targetTextureScale.Y * -.01f);
                 g.FillRectangle(txb, _originInBin.X, _originInBin.Y, _sizeInBin.X, _sizeInBin.Y);
             }
         }

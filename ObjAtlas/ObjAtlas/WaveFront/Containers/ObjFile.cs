@@ -140,6 +140,39 @@ namespace ObjAtlas.WaveFront.Containers
             //this.GetGroupsUsingMaterialNames(testString);
         }
 
+        public void WriteFile(StreamWriter pWriter)
+        {
+            _factoryVertices.Clear();
+            _factoryNormals.Clear();
+            _factoryTexCoords.Clear();
+            _factoryVertices.Clear();
+
+            //now go through and replace the values from factories with what we have stored
+            foreach (var gg in _groups)
+            {
+                foreach (var ff in gg.GetFaces())
+                {
+                    foreach (var fv in ff.GetVertices())
+                    {
+                        fv.LoadDataIntoFactories(_factoryVertices,
+                            _factoryTexCoords,
+                            _factoryNormals);
+                    }
+                }
+            }
+
+            //now write out the data in each of the factories
+            _factoryVertices.OutputToFile(pWriter, "v {0}");
+            _factoryTexCoords.OutputToFile(pWriter, "vt {0}");
+            _factoryNormals.OutputToFile(pWriter, "vn {0}");
+            _factoryParameterVertices.OutputToFile(pWriter, "vp {0}");
+
+            //now write out the data for each group
+            foreach(var g in _groups)
+            {
+                pWriter.WriteLine(g.OutputToFile());
+            }
+        }
         public IList<Material> GetMaterials(IList<string> materialNames = null, bool excludeUnused = true)
         {
             List<Material> lm = new List<Material>();
@@ -147,6 +180,13 @@ namespace ObjAtlas.WaveFront.Containers
                 foreach (var m in mf.GetMaterials(materialNames))
                     if (!excludeUnused || m.MaterialUsed())
                         lm.Add(m);
+
+            return lm;
+        }
+
+        public IList<Group> GetGroupsUsingMaterialName(string pMaterialName)
+        {
+            List<Group> lm = _groups.Where(x => x.materialName == pMaterialName).ToList();
 
             return lm;
         }

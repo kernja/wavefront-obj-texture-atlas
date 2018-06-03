@@ -255,12 +255,14 @@ namespace ObjAtlas
 
         private void button1_Click(object sender, EventArgs e)
         {
+            /*
             if (atlasGroup != null)
             {
                 atlasGroup.Solve();
                 var i = atlasGroup.RenderToImage();
                 i.Save("d:\\output.png");
-            }
+            }*/
+
         }
 
         private void trackScaleU_Scroll(object sender, EventArgs e)
@@ -343,6 +345,8 @@ namespace ObjAtlas
                 MessageBox.Show("Please enter in a valid filename.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
+            atlas.Generate(outputName, outputDir);
         }
     }
 }

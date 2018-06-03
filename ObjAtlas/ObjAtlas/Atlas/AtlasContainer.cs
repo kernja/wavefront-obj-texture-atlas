@@ -2,6 +2,8 @@
 using ObjAtlas.WaveFront.Containers;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -173,6 +175,79 @@ namespace ObjAtlas.Atlas
                 pTargetGroup.AddMaterial(ma);
             }
             _groups.Remove(pSourceGroup);
+        }
+
+        public void Generate(string pOutputName, string pOutputDirectory)
+        {
+            //copy the original into the modified 
+            _objModified = _objOriginal.DeepClone();
+
+            //solve only the groups we want to solve
+            foreach (var g in _groups.Where(x => x.isIgnored == false && x.hasTextureImages == true))
+            {
+                //solve the group
+                g.Solve();
+
+                //go through each material in the group
+                foreach (var m in g.GetMaterials())
+                {
+                    //now go through each group in the object
+                    foreach (var og in _objModified.GetGroupsUsingMaterialName(m.name))
+                    {
+                        //update the material name to this one
+                        og.materialName = g.name;
+
+                        //go through the faces and vertices and update the UV coordinates
+                        foreach (var f in og.GetFaces())
+                        {
+                            foreach (var v in f.GetVertices())
+                            {
+                                var uv = v.GetTextureUV();
+                                uv.X = (uv.X + m.uvNormalizer.X);
+                                uv.X = uv.X * m.uvScale.X * m.SizeInBinPercentage.X;
+                                uv.X += m.OriginInBinPercentage.X;
+
+                                uv.Y = (uv.Y + m.uvNormalizer.Y);
+                                uv.Y = uv.Y * m.uvScale.Y * m.SizeInBinPercentage.Y;
+                                uv.Y += m.OriginInBinPercentage.Y;
+                            }
+                        }
+                    }
+                }
+            }
+
+            //now write out string
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(pOutputDirectory + pOutputName + ".obj"))
+            {
+                //write the material name
+                file.WriteLine("mtllib {0}.mtl", pOutputName);
+                file.WriteLine("");
+
+                //write out the modified obj file
+                _objModified.WriteFile(file);
+                file.Close();
+            }
+
+            //now copy the textures over
+            foreach (var g in _groups)
+            {
+                //material has ignored textures
+                if (g.isIgnored == true && g.hasTextureImages == true)
+                {
+                    string fm = g.GetFirstTextureFilename();
+                    if (File.Exists(pOutputDirectory + Path.GetFileName(fm)))
+                        File.Delete(pOutputDirectory + Path.GetFileName(fm));
+
+                    File.Copy(fm, pOutputDirectory + Path.GetFileName(fm));
+                }
+                //material has atlas
+                else if (g.isIgnored == false && g.hasTextureImages == true)
+                {
+                    Image img = g.RenderToImage();
+                    img.RotateFlip(System.Drawing.RotateFlipType.RotateNoneFlipY);
+                    img.Save(pOutputDirectory + g.name + ".png");
+                }
+            }
         }
     }
 }

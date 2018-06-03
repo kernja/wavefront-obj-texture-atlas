@@ -45,7 +45,10 @@ namespace ObjAtlas.Atlas
         {
             _childMaterials.Remove(pMat);
         }
-
+        public string GetFirstTextureFilename()
+        {
+            return _childMaterials.First().textureFilename;
+        }
         public void Solve()
         {
 
@@ -144,6 +147,12 @@ namespace ObjAtlas.Atlas
 
             //finish off the atlas
             _atlasSolved = true;
+
+            //update the percentages needed for each texture
+            foreach (var m in cm)
+                m.FinalizeSolvedAtlas(_atlasWidth, _atlasHeight);
+
+            //update the list
             _atlasMaterials = cm;
         }
 
@@ -163,32 +172,6 @@ namespace ObjAtlas.Atlas
 
             return canvas;
         }
-        /*
-         * Public Function ToImage() As Image
-        'if we're not solved, throw an error
-        If (_solved = False) Then
-            Throw New Exception()
-        End If
-
-        'render the images
-        'create the canvas
-        Dim canvas As Image = New Bitmap(_width, _height)
-        'go through each image in the list
-        For Each img As GRBSImage In _pictureList
-            'create a brush with each image
-            Using brush As TextureBrush = New TextureBrush(img.Picture, Drawing2D.WrapMode.Tile)
-                'create a graphic context and paste the brush to it, at the location
-                Using g As Graphics = Graphics.FromImage(canvas)
-                    g.FillRectangle(brush, Convert.ToSingle(img.X), Convert.ToSingle(img.Y), Convert.ToSingle(img.Width), Convert.ToSingle(img.Height))
-                End Using
-            End Using
-        Next
-
-        'return the image
-        Return canvas
-    End Function
-
-         * */
 
         private int NearestPow2(int n)
         {

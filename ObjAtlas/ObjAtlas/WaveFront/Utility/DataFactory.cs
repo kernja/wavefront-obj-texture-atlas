@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,6 +48,17 @@ namespace ObjAtlas.WaveFront.Utility
         public IList<T> GetObjects()
         {
             return this._objects.ToList();
+        }
+
+        public void OutputToFile(StreamWriter pWriter, string pUsingFormatString)
+        {
+            foreach (var obj in _objects)
+            {
+                pWriter.WriteLine(string.Format(pUsingFormatString, obj.ToString()));
+            }
+            pWriter.WriteLine("# Count: " + _objects.Count.ToString());
+            pWriter.WriteLine("");
+
         }
     }
 }

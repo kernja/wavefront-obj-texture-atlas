@@ -79,5 +79,10 @@ namespace ObjAtlas.WaveFront.Obj
         {
             return string.Format("{0}_{1}_{2}", this.X, this.Y, this.W).GetHashCode();
         }
+
+          public override string ToString()
+        {
+            return string.Format("{0} {1} ", this.X, this.Y);
+        }
     }
 }

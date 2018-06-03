@@ -68,6 +68,21 @@ namespace ObjAtlas.WaveFront.Obj
                 _normal = pNormalFactory.ObjectAtIndex(_vNormalIndex.Value);
         }
 
+        public void LoadDataIntoFactories(DataFactory<Vertex> pVertexFactory, DataFactory<UV> pTextureFactory, DataFactory<Vertex> pNormalFactory)
+        {
+
+            _vIndex = pVertexFactory.Add(_vertex);
+            _vTextureIndex = null;
+            _vNormalIndex = null;
+
+            if (_texture != null)
+                _vTextureIndex = pTextureFactory.Add(_texture);
+
+            if (_normal != null)
+                _vNormalIndex = pNormalFactory.Add(_normal);
+
+        }
+
         public Vertex GetVertex()
         {
             return _vertex;
@@ -94,26 +109,29 @@ namespace ObjAtlas.WaveFront.Obj
         public void SetTextureUV(float pU, float pV, float? pW = null)
         {
             _texture = new UV(pU, pV, pW);
+            
         }
 
         public override string ToString()
         {
             return "FaceVertexData";
-            /*
-            if (_vTextureIndex == -1 && _vNormalIndex == -1)
+        }
+
+        public string OutputToFile()
+        {
+            if (_vTextureIndex == null && _vNormalIndex == null)
             {
-                return string.Format("{0}", _vIndex.ToString());
-            } else if (_vTextureIndex != -1 && _vNormalIndex == -1)
+                return string.Format("{0} ", _vIndex.ToString());
+            } else if (_vTextureIndex != null && _vNormalIndex == null)
             {
-                return string.Format("{0}/{1}", _vIndex.ToString(), _vTextureIndex.ToString());
-            } else if (_vTextureIndex == -1 && _vNormalIndex != -1)
+                return string.Format("{0}/{1} ", _vIndex.ToString(), _vTextureIndex.ToString());
+            } else if (_vTextureIndex == null && _vNormalIndex != null)
             {
-                    return string.Format("{0}//{1}", _vIndex.ToString(), _vNormalIndex.ToString());
+                return string.Format("{0}//{1} ", _vIndex.ToString(), _vNormalIndex.ToString());
             } else
             {
-                    return string.Format("{0}/{1}/{2}", _vIndex.ToString(),  _vTextureIndex.ToString(), _vNormalIndex.ToString());
-       
-            }*/
+                return string.Format("{0}/{1}/{2} ", _vIndex.ToString(),  _vTextureIndex.ToString(), _vNormalIndex.ToString());
+            }
         }
     }
 }

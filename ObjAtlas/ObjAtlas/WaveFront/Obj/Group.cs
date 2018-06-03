@@ -79,5 +79,17 @@ namespace ObjAtlas.WaveFront.Obj
 
             return new PointF(uMax, vMax);
         }
+
+        public string OutputToFile()
+        {
+            string myReturn = string.Format("g {0}\nusemtl {1}\n", groupName, materialName);
+
+            foreach (var f in _faces)
+            {
+                myReturn += f.OutputToFile() + "\n";
+            }
+
+            return myReturn;
+        }
     }
 }

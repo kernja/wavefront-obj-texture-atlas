@@ -54,5 +54,16 @@ namespace ObjAtlas.WaveFront.Obj
 
             return true;
         }*/
+
+        public string OutputToFile()
+        {
+            string myReturn = "f ";
+            foreach (var v in _vertexData)
+            {
+                myReturn += v.OutputToFile();
+            }
+
+            return myReturn;
+        }
     }
 }

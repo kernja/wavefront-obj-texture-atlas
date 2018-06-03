@@ -73,7 +73,7 @@ namespace ObjAtlas.WaveFront.Obj
             if (co.Y != this.Y)
                 return false;
 
-            if (co.Y != this.Z)
+            if (co.Z != this.Z)
                 return false;
 
             if (co.W != this.W)
@@ -84,9 +84,14 @@ namespace ObjAtlas.WaveFront.Obj
 
         }
 
-         public override int GetHashCode()
+        public override int GetHashCode()
         {
             return string.Format("{0}_{1}_{2}_{3}", this.X, this.Y, this.Z, this.W).GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0} {1} {2} ", this.X, this.Y, this.Z);
         }
     }
 }

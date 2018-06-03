@@ -141,7 +141,7 @@ namespace ObjAtlas.Atlas
         }
 
         public void PrepareToSolveAtlas()
-        {W
+        {
             _originInBin = new Point(0, 0);
             _sizeInBin = new Point((int)((float)textureRepeatedSize.X * (targetTextureScale.X * .01)), (int)((float)textureRepeatedSize.Y * (targetTextureScale.Y * .01)));
             _placedInBin = false;

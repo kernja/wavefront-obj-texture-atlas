@@ -57,6 +57,10 @@ namespace ObjAtlas.Atlas
             _groups.Add(texGroup);
         }
 
+        public string GetRootFolder()
+        {
+            return _objOriginal.folderDirectory;
+        }
         public IList<GroupAtl> GetTexturelessMaterials()
         {
             return _groups.Where(x => x.hasTextureImages == false).ToList();

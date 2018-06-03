@@ -293,5 +293,56 @@ namespace ObjAtlas
              TrackBar s = (TrackBar)sender;
              lblUVScaleUPercentage.Text = s.Value.ToString() + "%";
         }
+
+        private void trackCompressionRatio_Scroll(object sender, EventArgs e)
+        {
+             TrackBar s = (TrackBar)sender;
+             lblCompressionRatioPercentage.Text = s.Value.ToString() + "%";
+        }
+
+        private void btnSelectDestinationFolder_Click(object sender, EventArgs e)
+        {
+            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+            {
+                //create a new atlas container
+                txtOutputFolder.Text = folderBrowserDialog.SelectedPath + "\\";
+            }
+        }
+
+        private void txtOutputFilename_Leave(object sender, EventArgs e)
+        {
+            TextBox s = (TextBox)sender;
+            s.Text = s.Text.RemoveMultipleSpaces().RemoveSpecialCharacters().RemoveSpaces();
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnGenerate_Click(object sender, EventArgs e)
+        {
+            string outputDir = txtOutputFolder.Text;
+            string outputName = txtOutputFilename.Text;
+            bool copyNonAtlas = chkCopyNonAtlas.Checked;
+            bool compressOutput = chkCompress.Checked;
+            float compressRatio = trackCompressionRatio.Value * .01f;
+
+            if (atlas == null)
+            {
+                MessageBox.Show("Please create an atlas before attempting to generate.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else if (atlas.GetRootFolder().Equals(outputDir, StringComparison.InvariantCultureIgnoreCase))
+            {
+                MessageBox.Show("Please choose a destination folder that does not contain the original files.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else if (string.IsNullOrEmpty(outputName) || string.IsNullOrWhiteSpace(outputName))
+            {
+                MessageBox.Show("Please enter in a valid filename.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
     }
 }

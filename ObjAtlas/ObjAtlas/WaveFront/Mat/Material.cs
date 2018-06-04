@@ -57,5 +57,9 @@ namespace ObjAtlas.WaveFront.Mat
         {
             return _textureFileNames.First();
         }
+        public IList<string> GetRawMaterialData()
+        {
+            return _rawMaterialData;
+        }
     }
 }

@@ -173,6 +173,17 @@ namespace ObjAtlas.WaveFront.Containers
                 pWriter.WriteLine(g.OutputToFile());
             }
         }
+
+        public Material GetMaterial(string materialName)
+        {
+            var mf = _materialFiles.Where(x => x.ContainsMaterial(materialName)).FirstOrDefault();
+            if (mf != null)
+                return mf.GetMaterial(materialName);
+
+            return null;
+        }
+
+
         public IList<Material> GetMaterials(IList<string> materialNames = null, bool excludeUnused = true)
         {
             List<Material> lm = new List<Material>();

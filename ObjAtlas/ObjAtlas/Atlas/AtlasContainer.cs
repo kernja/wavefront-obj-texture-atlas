@@ -1,5 +1,6 @@
 ﻿using ObjAtlas.Extensions;
 using ObjAtlas.WaveFront.Containers;
+using ObjAtlas.WaveFront.Mat;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -216,7 +217,7 @@ namespace ObjAtlas.Atlas
                 }
             }
 
-            //now write out string
+            //now write out obj file
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(pOutputDirectory + pOutputName + ".obj"))
             {
                 //write the material name
@@ -225,6 +226,49 @@ namespace ObjAtlas.Atlas
 
                 //write out the modified obj file
                 _objModified.WriteFile(file);
+                file.Close();
+            }
+
+            //now write out obj file
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(pOutputDirectory + pOutputName + ".mtl"))
+            {
+                //now write out the materials where they're not ignored and have texture images
+                foreach (var g in _groups.Where(x => x.isIgnored == false && x.hasTextureImages == true))
+                {
+                    file.WriteLine("newmtl {0}", g.name);
+                    file.WriteLine("Ka 0.000000 0.000000 0.000000");
+                    file.WriteLine("Kd 1.000000 1.000000 1.000000");
+                    file.WriteLine("Ks 0.000000 0.000000 0.000000");
+                    file.WriteLine("d 1.000000");
+                    file.WriteLine("illum 2");
+                    file.WriteLine("Ns 1.000000");
+                    file.WriteLine("map_Kd {0}.{1}", g.name, "png");
+                    //file.WriteLine("map_Bump {0}.{1}", g.name, "png");
+                    file.WriteLine("");
+                }
+
+                //now write out the materials where they're ignored and have texture images
+                foreach (var g in _groups.Where(x => x.isIgnored == true && x.hasTextureImages == true))
+                {
+                    Material m = _objOriginal.GetMaterial(g.name);
+                    foreach (var l in m.GetRawMaterialData())
+                    {
+                        file.WriteLine(l);
+                    }
+                    file.WriteLine("");
+                }
+
+                //now write out the materials where they're ignored and don't have texture images
+                foreach (var g in _groups.Where(x => x.isIgnored == true && x.hasTextureImages == false))
+                {
+                    Material m = _objOriginal.GetMaterial(g.name);
+                    foreach (var l in m.GetRawMaterialData())
+                    {
+                        file.WriteLine(l);
+                    }
+                    file.WriteLine("");
+                }
+                
                 file.Close();
             }
 
@@ -248,6 +292,7 @@ namespace ObjAtlas.Atlas
                     img.Save(pOutputDirectory + g.name + ".png");
                 }
             }
+           
         }
     }
 }

@@ -39,6 +39,14 @@ namespace ObjAtlas.WaveFront.Containers
             return textureNames.ToList();
         }
         */
+        public bool ContainsMaterial(string pName)
+        {
+            return _materials.Any(x => x.materialName == pName);
+        }
+        public Material GetMaterial(string pName)
+        {
+            return _materials.Where(x => x.materialName == pName).FirstOrDefault();
+        }
         public IList<Material> GetMaterials(IList<string> pNames = null)
         {
             if (pNames == null)

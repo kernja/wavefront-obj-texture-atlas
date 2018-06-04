@@ -71,15 +71,15 @@ namespace ObjAtlas.WaveFront.Obj
         public void LoadDataIntoFactories(DataFactory<Vertex> pVertexFactory, DataFactory<UV> pTextureFactory, DataFactory<Vertex> pNormalFactory)
         {
 
-            _vIndex = pVertexFactory.Add(_vertex);
+            _vIndex = pVertexFactory.Add(_vertex, true);
             _vTextureIndex = null;
             _vNormalIndex = null;
 
             if (_texture != null)
-                _vTextureIndex = pTextureFactory.Add(_texture);
+                _vTextureIndex = pTextureFactory.Add(_texture, true);
 
             if (_normal != null)
-                _vNormalIndex = pNormalFactory.Add(_normal);
+                _vNormalIndex = pNormalFactory.Add(_normal, true);
 
         }
 

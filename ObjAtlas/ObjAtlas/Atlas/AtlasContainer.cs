@@ -4,6 +4,7 @@ using ObjAtlas.WaveFront.Mat;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -14,9 +15,14 @@ namespace ObjAtlas.Atlas
     public class AtlasContainer
     {
         private IList<GroupAtl> _groups;
-
         private ObjFile _objOriginal;
         private ObjFile _objModified;
+
+        public bool renderOption_flipOutputVertically { get; set; }
+        public bool renderOption_flipOutputHorizontally { get; set; }
+        public bool renderOption_compressImages { get; set; }
+        public bool renderOption_copyNonAtlasImages { get; set; }
+        public long renderOption_compressImagesRatio { get; set; }
 
         public AtlasContainer(string pFilename)
         {
@@ -276,7 +282,7 @@ namespace ObjAtlas.Atlas
             foreach (var g in _groups)
             {
                 //material has ignored textures
-                if (g.isIgnored == true && g.hasTextureImages == true)
+                if (g.isIgnored && g.hasTextureImages && this.renderOption_copyNonAtlasImages)
                 {
                     string fm = g.GetFirstTextureFilename();
                     if (File.Exists(pOutputDirectory + Path.GetFileName(fm)))
@@ -285,11 +291,38 @@ namespace ObjAtlas.Atlas
                     File.Copy(fm, pOutputDirectory + Path.GetFileName(fm));
                 }
                 //material has atlas
-                else if (g.isIgnored == false && g.hasTextureImages == true)
+                else if (g.isIgnored == false && g.hasTextureImages)
                 {
+                    //render our atlas image
                     Image img = g.RenderToImage();
-                    img.RotateFlip(System.Drawing.RotateFlipType.RotateNoneFlipY);
-                    img.Save(pOutputDirectory + g.name + ".png");
+
+                    //rotate and flip, if desired
+                    if (this.renderOption_flipOutputHorizontally && this.renderOption_flipOutputVertically)
+                    {
+                         img.RotateFlip(System.Drawing.RotateFlipType.RotateNoneFlipXY);
+                    } else if (this.renderOption_flipOutputHorizontally)
+                    {
+                         img.RotateFlip(System.Drawing.RotateFlipType.RotateNoneFlipX);
+                    } else if (this.renderOption_flipOutputVertically)
+                    {
+                        img.RotateFlip(System.Drawing.RotateFlipType.RotateNoneFlipY);
+                    }
+
+                    string renderPath = pOutputDirectory + g.name;
+
+                    //now save
+                    if (this.renderOption_compressImages)
+                    {
+                        //user wants compression
+                        var encoder = ImageCodecInfo.GetImageEncoders().First(c => c.FormatID == ImageFormat.Jpeg.Guid);
+                        var encParams = new EncoderParameters(1);
+                        encParams.Param[0] = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, this.renderOption_compressImagesRatio);
+                        img.Save(renderPath + ".jpg", encoder, encParams);
+
+                    } else {
+                        //user does not want compression
+                        img.Save(renderPath + ".png");
+                    }
                 }
             }
            

@@ -61,7 +61,6 @@
             this.trackScaleV = new System.Windows.Forms.TrackBar();
             this.lblUVScaleUPercentage = new System.Windows.Forms.Label();
             this.trackScaleU = new System.Windows.Forms.TrackBar();
-            this.button1 = new System.Windows.Forms.Button();
             this.btnAtlasRename = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -90,8 +89,8 @@
             this.openObjDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveObjDialog = new System.Windows.Forms.SaveFileDialog();
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.chkFlipOutputHorizontally = new System.Windows.Forms.CheckBox();
+            this.chkFlipOutputVertically = new System.Windows.Forms.CheckBox();
             this.MenuStrip1.SuspendLayout();
             this.TabControl1.SuspendLayout();
             this.tabGeneral.SuspendLayout();
@@ -239,8 +238,8 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.checkBox2);
-            this.groupBox3.Controls.Add(this.checkBox1);
+            this.groupBox3.Controls.Add(this.chkFlipOutputVertically);
+            this.groupBox3.Controls.Add(this.chkFlipOutputHorizontally);
             this.groupBox3.Controls.Add(this.trackCompressionRatio);
             this.groupBox3.Controls.Add(this.lblCompressionRatioPercentage);
             this.groupBox3.Controls.Add(this.label11);
@@ -395,7 +394,6 @@
             this.groupBox1.Controls.Add(this.trackScaleV);
             this.groupBox1.Controls.Add(this.lblUVScaleUPercentage);
             this.groupBox1.Controls.Add(this.trackScaleU);
-            this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.btnAtlasRename);
             this.groupBox1.Controls.Add(this.comboBox1);
             this.groupBox1.Controls.Add(this.label7);
@@ -480,17 +478,6 @@
             this.trackScaleU.Value = 100;
             this.trackScaleU.Scroll += new System.EventHandler(this.trackScaleU_Scroll);
             this.trackScaleU.ValueChanged += new System.EventHandler(this.trackScaleU_ValueChanged);
-            // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(621, 112);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(122, 34);
-            this.button1.TabIndex = 25;
-            this.button1.Text = "Make Test Atlas";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // btnAtlasRename
             // 
@@ -753,27 +740,30 @@
             // 
             this.saveObjDialog.Filter = ".PNG|*.png";
             // 
-            // checkBox1
+            // chkFlipOutputHorizontally
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox1.Location = new System.Drawing.Point(18, 44);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(212, 21);
-            this.checkBox1.TabIndex = 31;
-            this.checkBox1.Text = "Flip Atlas Output Horizontally";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.chkFlipOutputHorizontally.AutoSize = true;
+            this.chkFlipOutputHorizontally.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkFlipOutputHorizontally.Location = new System.Drawing.Point(18, 44);
+            this.chkFlipOutputHorizontally.Name = "chkFlipOutputHorizontally";
+            this.chkFlipOutputHorizontally.Size = new System.Drawing.Size(212, 21);
+            this.chkFlipOutputHorizontally.TabIndex = 31;
+            this.chkFlipOutputHorizontally.Text = "Flip Atlas Output Horizontally";
+            this.chkFlipOutputHorizontally.UseVisualStyleBackColor = true;
             // 
-            // checkBox2
+            // chkFlipOutputVertically
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox2.Location = new System.Drawing.Point(18, 21);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(195, 21);
-            this.checkBox2.TabIndex = 32;
-            this.checkBox2.Text = "Flip Atlas Output Vertically";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.chkFlipOutputVertically.AutoSize = true;
+            this.chkFlipOutputVertically.Checked = true;
+            this.chkFlipOutputVertically.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkFlipOutputVertically.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkFlipOutputVertically.Location = new System.Drawing.Point(18, 21);
+            this.chkFlipOutputVertically.Name = "chkFlipOutputVertically";
+            this.chkFlipOutputVertically.Size = new System.Drawing.Size(195, 21);
+            this.chkFlipOutputVertically.TabIndex = 32;
+            this.chkFlipOutputVertically.Text = "Flip Atlas Output Vertically";
+            this.chkFlipOutputVertically.UseVisualStyleBackColor = true;
+            this.chkFlipOutputVertically.CheckedChanged += new System.EventHandler(this.chkFlipOutputVertically_CheckedChanged);
             // 
             // frmMain
             // 
@@ -782,8 +772,11 @@
             this.ClientSize = new System.Drawing.Size(1032, 482);
             this.Controls.Add(this.TabControl1);
             this.Controls.Add(this.MenuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "frmMain";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "WaveFront OBJ Atlas";
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.MenuStrip1.ResumeLayout(false);
@@ -850,7 +843,6 @@
         internal System.Windows.Forms.OpenFileDialog openObjDialog;
         internal System.Windows.Forms.SaveFileDialog saveObjDialog;
         private System.Windows.Forms.Button btnAtlasRename;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TrackBar trackScaleU;
         private System.Windows.Forms.Label lblUVScaleVPercentage;
         private System.Windows.Forms.Label lblUVScaleV;
@@ -872,8 +864,8 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button btnGenerate;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox chkFlipOutputVertically;
+        private System.Windows.Forms.CheckBox chkFlipOutputHorizontally;
     }
 }
 

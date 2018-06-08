@@ -324,12 +324,18 @@ namespace ObjAtlas
 
         private void btnGenerate_Click(object sender, EventArgs e)
         {
+            //get paths
             string outputDir = txtOutputFolder.Text;
             string outputName = txtOutputFilename.Text;
+
+            //store our options from the form field
+            bool flipHorizontally = chkFlipOutputHorizontally.Checked;
+            bool flipVertically = chkFlipOutputVertically.Checked;
             bool copyNonAtlas = chkCopyNonAtlas.Checked;
             bool compressOutput = chkCompress.Checked;
-            float compressRatio = trackCompressionRatio.Value * .01f;
+            long compressRatio = trackCompressionRatio.Value;
 
+            //go through some basic error checks
             if (atlas == null)
             {
                 MessageBox.Show("Please create an atlas before attempting to generate.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -344,9 +350,45 @@ namespace ObjAtlas
             {
                 MessageBox.Show("Please enter in a valid filename.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
+            } else if (outputName.ToLowerInvariant().Contains(".obj") || (outputName.ToLowerInvariant().Contains(".mat")))
+            {
+                MessageBox.Show("Please do not include the file extension within the filename.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
 
+            //start outputting data
+            lstOutputSummary.Items.Clear();
+            lstOutputSummary.Items.Add(string.Format("Files will be outputted with names:"));
+            lstOutputSummary.Items.Add(string.Format("   {0}.obj", outputName));
+            lstOutputSummary.Items.Add(string.Format("   {0}.mat", outputName));
+            lstOutputSummary.Items.Add(string.Format("To the following directory"));
+            lstOutputSummary.Items.Add(string.Format("   {0}", outputDir));
+            lstOutputSummary.Items.Add("");
+
+            //output status items to screen
+            lstOutputSummary.Items.Add(string.Format("Setting atlas options:"));
+            lstOutputSummary.Items.Add(string.Format("   Flip vertically ({0})", flipVertically.ToString()));
+            lstOutputSummary.Items.Add(string.Format("   Flip horizontally ({0})", flipHorizontally.ToString()));
+            lstOutputSummary.Items.Add(string.Format("   Copy non-atlas textures ({0})", copyNonAtlas.ToString()));
+            lstOutputSummary.Items.Add(string.Format("   Compress atlas textures ({0})", compressOutput.ToString()));
+            if (compressOutput)
+                 lstOutputSummary.Items.Add(string.Format("   Compression ratio ({0}%)", compressRatio.ToString()));
+           
+            
+            //configure the renderer
+            atlas.renderOption_flipOutputVertically = flipVertically;
+            atlas.renderOption_flipOutputHorizontally = flipHorizontally;
+            atlas.renderOption_copyNonAtlasImages = copyNonAtlas;
+            atlas.renderOption_compressImages = compressOutput;
+            atlas.renderOption_compressImagesRatio = compressRatio;
+
+            //generate
             atlas.Generate(outputName, outputDir);
+        }
+
+        private void chkFlipOutputVertically_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

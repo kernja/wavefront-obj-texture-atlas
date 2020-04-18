@@ -44,6 +44,8 @@
             this.btnGenerate = new System.Windows.Forms.Button();
             this.lstOutputSummary = new System.Windows.Forms.ListBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.chkFlipOutputVertically = new System.Windows.Forms.CheckBox();
+            this.chkFlipOutputHorizontally = new System.Windows.Forms.CheckBox();
             this.trackCompressionRatio = new System.Windows.Forms.TrackBar();
             this.lblCompressionRatioPercentage = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -89,8 +91,8 @@
             this.openObjDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveObjDialog = new System.Windows.Forms.SaveFileDialog();
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
-            this.chkFlipOutputHorizontally = new System.Windows.Forms.CheckBox();
-            this.chkFlipOutputVertically = new System.Windows.Forms.CheckBox();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
+            this.exportWithoutAtlasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuStrip1.SuspendLayout();
             this.TabControl1.SuspendLayout();
             this.tabGeneral.SuspendLayout();
@@ -125,6 +127,8 @@
             this.ToolStripMenuItem1,
             this.mnuFileOpenConfig,
             this.mnuFileSaveConfig,
+            this.toolStripMenuItem3,
+            this.exportWithoutAtlasToolStripMenuItem,
             this.ToolStripMenuItem2,
             this.mnuFileExit});
             this.FileToolStripMenuItem.Name = "FileToolStripMenuItem";
@@ -146,14 +150,16 @@
             // mnuFileOpenConfig
             // 
             this.mnuFileOpenConfig.Name = "mnuFileOpenConfig";
-            this.mnuFileOpenConfig.Size = new System.Drawing.Size(224, 26);
+            this.mnuFileOpenConfig.Size = new System.Drawing.Size(230, 26);
             this.mnuFileOpenConfig.Text = "&Open Configuration...";
+            this.mnuFileOpenConfig.Click += new System.EventHandler(this.mnuFileOpenConfig_Click);
             // 
             // mnuFileSaveConfig
             // 
             this.mnuFileSaveConfig.Name = "mnuFileSaveConfig";
-            this.mnuFileSaveConfig.Size = new System.Drawing.Size(224, 26);
+            this.mnuFileSaveConfig.Size = new System.Drawing.Size(230, 26);
             this.mnuFileSaveConfig.Text = "&Save Configuration...";
+            this.mnuFileSaveConfig.Click += new System.EventHandler(this.mnuFileSaveConfig_Click);
             // 
             // ToolStripMenuItem2
             // 
@@ -252,6 +258,31 @@
             this.groupBox3.TabIndex = 6;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Output Settings";
+            // 
+            // chkFlipOutputVertically
+            // 
+            this.chkFlipOutputVertically.AutoSize = true;
+            this.chkFlipOutputVertically.Checked = true;
+            this.chkFlipOutputVertically.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkFlipOutputVertically.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkFlipOutputVertically.Location = new System.Drawing.Point(18, 21);
+            this.chkFlipOutputVertically.Name = "chkFlipOutputVertically";
+            this.chkFlipOutputVertically.Size = new System.Drawing.Size(195, 21);
+            this.chkFlipOutputVertically.TabIndex = 32;
+            this.chkFlipOutputVertically.Text = "Flip Atlas Output Vertically";
+            this.chkFlipOutputVertically.UseVisualStyleBackColor = true;
+            this.chkFlipOutputVertically.CheckedChanged += new System.EventHandler(this.chkFlipOutputVertically_CheckedChanged);
+            // 
+            // chkFlipOutputHorizontally
+            // 
+            this.chkFlipOutputHorizontally.AutoSize = true;
+            this.chkFlipOutputHorizontally.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkFlipOutputHorizontally.Location = new System.Drawing.Point(18, 44);
+            this.chkFlipOutputHorizontally.Name = "chkFlipOutputHorizontally";
+            this.chkFlipOutputHorizontally.Size = new System.Drawing.Size(212, 21);
+            this.chkFlipOutputHorizontally.TabIndex = 31;
+            this.chkFlipOutputHorizontally.Text = "Flip Atlas Output Horizontally";
+            this.chkFlipOutputHorizontally.UseVisualStyleBackColor = true;
             // 
             // trackCompressionRatio
             // 
@@ -740,30 +771,17 @@
             // 
             this.saveObjDialog.Filter = ".PNG|*.png";
             // 
-            // chkFlipOutputHorizontally
+            // toolStripMenuItem3
             // 
-            this.chkFlipOutputHorizontally.AutoSize = true;
-            this.chkFlipOutputHorizontally.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkFlipOutputHorizontally.Location = new System.Drawing.Point(18, 44);
-            this.chkFlipOutputHorizontally.Name = "chkFlipOutputHorizontally";
-            this.chkFlipOutputHorizontally.Size = new System.Drawing.Size(212, 21);
-            this.chkFlipOutputHorizontally.TabIndex = 31;
-            this.chkFlipOutputHorizontally.Text = "Flip Atlas Output Horizontally";
-            this.chkFlipOutputHorizontally.UseVisualStyleBackColor = true;
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(227, 6);
             // 
-            // chkFlipOutputVertically
+            // exportWithoutAtlasToolStripMenuItem
             // 
-            this.chkFlipOutputVertically.AutoSize = true;
-            this.chkFlipOutputVertically.Checked = true;
-            this.chkFlipOutputVertically.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkFlipOutputVertically.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkFlipOutputVertically.Location = new System.Drawing.Point(18, 21);
-            this.chkFlipOutputVertically.Name = "chkFlipOutputVertically";
-            this.chkFlipOutputVertically.Size = new System.Drawing.Size(195, 21);
-            this.chkFlipOutputVertically.TabIndex = 32;
-            this.chkFlipOutputVertically.Text = "Flip Atlas Output Vertically";
-            this.chkFlipOutputVertically.UseVisualStyleBackColor = true;
-            this.chkFlipOutputVertically.CheckedChanged += new System.EventHandler(this.chkFlipOutputVertically_CheckedChanged);
+            this.exportWithoutAtlasToolStripMenuItem.Name = "exportWithoutAtlasToolStripMenuItem";
+            this.exportWithoutAtlasToolStripMenuItem.Size = new System.Drawing.Size(230, 26);
+            this.exportWithoutAtlasToolStripMenuItem.Text = "Export Without Atlas...";
+            this.exportWithoutAtlasToolStripMenuItem.Click += new System.EventHandler(this.exportWithoutAtlasToolStripMenuItem_Click);
             // 
             // frmMain
             // 
@@ -866,6 +884,8 @@
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
         private System.Windows.Forms.CheckBox chkFlipOutputVertically;
         private System.Windows.Forms.CheckBox chkFlipOutputHorizontally;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem exportWithoutAtlasToolStripMenuItem;
     }
 }
 

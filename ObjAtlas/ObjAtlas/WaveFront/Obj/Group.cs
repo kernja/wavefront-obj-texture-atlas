@@ -26,11 +26,28 @@ namespace ObjAtlas.WaveFront.Obj
             _faces.Add(new Face(parseData));
         }
 
+        public void AddFaces(List<Face> faces)
+        {
+            foreach (var f in faces)
+            {
+                _faces.Add(f);
+            }
+        }
+
+        public int GetFaceCount()
+        {
+            return _faces.Count;
+        }
+
         public List<Face> GetFaces()
         {
             return _faces.ToList();
         }
 
+        public void ClearFaces()
+        {
+            _faces.Clear();
+        }
         public PointF GetUVMin()
         {
             float uMin = float.MaxValue;

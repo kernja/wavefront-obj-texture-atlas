@@ -390,5 +390,24 @@ namespace ObjAtlas
         {
 
         }
+
+        private void exportWithoutAtlasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //we got the wavefront file
+            if (saveObjDialog.ShowDialog() == DialogResult.OK)
+            {
+               
+            }
+        }
+
+        private void mnuFileOpenConfig_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void mnuFileSaveConfig_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -95,7 +95,19 @@ namespace ObjAtlas.WaveFront.Containers
                 {
                     //if we don't have a group defined, create a group
                     if (g == null)
+                    {
                         g = new Group();
+                    }
+                    //a group can only have one material
+                    else if (g != null && !String.IsNullOrEmpty(g.materialName) && !g.materialName.Equals(sSplit[1]))
+                    {
+                        //add the existing group
+                        _groups.Add(g);
+
+                        //create a new group
+                        string gName = g.groupName;
+                        g = new Group(gName);
+                    }
 
                     //set the material name to the group 
                     g.materialName = sSplit[1];
@@ -114,6 +126,33 @@ namespace ObjAtlas.WaveFront.Containers
             //finally add the last group to the mix
             if (g != null)
                 _groups.Add(g);
+
+            //optimize al of the groups      
+            for (int i = 0; i < _groups.Count; i++)
+            {
+                //do the merge
+                for (int j = 0; j < _groups.Count; j++)
+                {
+                    //we only want to do the merge of higher indexed items into lower ones
+                    if (i < j && _groups[i].GetFaceCount() > 0)
+                    {
+                        //ensure that the material and group names match, and that the face count is greater than zero
+                        if (_groups[j].GetFaceCount() > 0 && _groups[i].groupName.Equals(_groups[j].groupName) && _groups[i].materialName.Equals(_groups[j].materialName))
+                        {
+                            _groups[i].AddFaces(_groups[j].GetFaces());
+                            _groups[j].ClearFaces();
+                        }
+                    }
+                }
+            }
+            
+            //now do the perge
+            for (int j = _groups.Count - 1; j >= 0; j--)
+            {
+                if (_groups[j].GetFaceCount() == 0)
+                    _groups.RemoveAt(j);
+            }
+
 
             //we've gone through the entire file to clean things up
             //mark how many times a material is in use

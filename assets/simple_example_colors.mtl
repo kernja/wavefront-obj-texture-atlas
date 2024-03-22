@@ -1,0 +1,187 @@
+# Wavefront MTL file
+# Creator: Ultimate Unwrap3D v2.50.60
+# URL: http://www.unwrap3d.com
+# Time: Thu May 24 23:31:38 2018
+# num_materials: 18
+
+newmtl orange0
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+d 1.000000
+illum 2
+Ns 1.000000
+map_Kd orange.png
+map_Bump orange.png
+
+newmtl blue1
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+d 1.000000
+illum 2
+Ns 1.000000
+map_Kd blue.png
+map_Bump blue.png
+
+newmtl purple2
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+d 1.000000
+illum 2
+Ns 1.000000
+map_Kd purple.png
+map_Bump purple.png
+
+newmtl cyan3
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+d 1.000000
+illum 2
+Ns 1.000000
+map_Kd cyan.png
+map_Bump cyan.png
+
+newmtl yellow4
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+d 1.000000
+illum 2
+Ns 1.000000
+map_Kd yellow.png
+map_Bump yellow.png
+
+newmtl green5
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+d 1.000000
+illum 2
+Ns 1.000000
+map_Kd green.png
+map_Bump green.png
+
+newmtl orange6
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+d 1.000000
+illum 2
+Ns 1.000000
+map_Kd orange.png
+map_Bump orange.png
+
+newmtl blue7
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+d 1.000000
+illum 2
+Ns 1.000000
+map_Kd blue.png
+map_Bump blue.png
+
+newmtl purple8
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+d 1.000000
+illum 2
+Ns 1.000000
+map_Kd purple.png
+map_Bump purple.png
+
+newmtl cyan9
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+d 1.000000
+illum 2
+Ns 1.000000
+map_Kd cyan.png
+map_Bump cyan.png
+
+newmtl yellow10
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+d 1.000000
+illum 2
+Ns 1.000000
+map_Kd yellow.png
+map_Bump yellow.png
+
+newmtl green11
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+d 1.000000
+illum 2
+Ns 1.000000
+map_Kd green.png
+map_Bump green.png
+
+newmtl orange
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+d 1.000000
+illum 2
+Ns 1.000000
+map_Kd orange.png
+map_Bump orange.png
+
+newmtl blue
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+d 1.000000
+illum 2
+Ns 1.000000
+map_Kd blue.png
+map_Bump blue.png
+
+newmtl purple
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+d 1.000000
+illum 2
+Ns 1.000000
+map_Kd purple.png
+map_Bump purple.png
+
+newmtl cyan
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+d 1.000000
+illum 2
+Ns 1.000000
+map_Kd cyan.png
+map_Bump cyan.png
+
+newmtl yellow
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+d 1.000000
+illum 2
+Ns 1.000000
+map_Kd yellow.png
+map_Bump yellow.png
+
+newmtl green
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+d 1.000000
+illum 2
+Ns 1.000000
+map_Kd green.png
+map_Bump green.png
+
+# num_materials: 18
